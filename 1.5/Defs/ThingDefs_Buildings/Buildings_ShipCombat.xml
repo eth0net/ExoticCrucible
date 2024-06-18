@@ -1,0 +1,62 @@
+<Defs>
+
+	<ThingDef ParentName="ShipHeatsinkBase">
+		<defName>ShipHeatsinkExotic</defName>
+		<label>exotic heatsink</label>
+		<description>An exotic heatsink that slowly removes heat from the network, using it to produce exotic particles. Reactions to produce exotic particles will only occur when enough heat and power are available. Will take damage if coolant gets near maximum heat capacity and release all heat stored if destroyed. Will slowly replenish capacity from depletion when not in battle. Does not function if the ship is cloaked.\n\nHeat capacity: 300Hu\nHeat required for reaction: 200Hu\nHeat loss: 1Hu/s</description>
+		<size>(2,2)</size>
+		<graphicData>
+			<!-- <texPath>Things/Building/Ship/HeatsinkExotic</texPath> -->
+			<texPath>Things/Building/Ship/Heatsink</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>1200</MaxHitPoints>
+			<WorkToBuild>8000</WorkToBuild>
+			<Flammability>0</Flammability>
+			<Beauty>-2</Beauty>
+		</statBases>
+		<passability>Impassable</passability>
+		<seeThroughFog>true</seeThroughFog>
+		<costList>
+			<Steel>250</Steel>
+			<Plasteel>50</Plasteel>
+			<ComponentSpacer>4</ComponentSpacer>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<comps>
+			<li Class="ExoticHeatsink.CompProps_ShipHeatSinkExotic">
+				<compClass>ExoticHeatsink.CompShipHeatSink_Exotic</compClass>
+				<showOnRoof>true</showOnRoof>
+				<heatCapacity>800</heatCapacity>
+				<heatLoss>4</heatLoss>
+				<threat>6</threat>
+				<reactionWorkAmount>600000</reactionWorkAmount>
+				<reactionSpeedBase>0.1</reactionSpeedBase>
+				<reactionMinimumHeat>0</reactionMinimumHeat>
+				<reactionHeatBonus>0.1</reactionHeatBonus>
+				<reactionProduct>ArchotechExoticParticles</reactionProduct>
+				<reactionProductAmount>1</reactionProductAmount>
+			</li>
+			<li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+				<transmitsPower>true</transmitsPower>
+        <basePowerConsumption>120</basePowerConsumption>
+				<idlePowerDraw>0</idlePowerDraw>
+        <alwaysDisplayAsUsingPower>true</alwaysDisplayAsUsingPower>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+			<li>
+				<compClass>CompColorable</compClass>
+			</li>
+		</comps>
+		<building>
+			<paintable>true</paintable>
+		</building>
+		<researchPrerequisites>
+			<li>ShipHeatsinkExotic</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+</Defs>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoticHeatsink", "ExoticHeatsink.csproj", "{6977C2C4-0D81-4FDB-8A2A-9B1DD3658630}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6977C2C4-0D81-4FDB-8A2A-9B1DD3658630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6977C2C4-0D81-4FDB-8A2A-9B1DD3658630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6977C2C4-0D81-4FDB-8A2A-9B1DD3658630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6977C2C4-0D81-4FDB-8A2A-9B1DD3658630}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F15A8E5D-C6D8-46FB-BA4F-6026D5E4E7C3}
+	EndGlobalSection
+EndGlobal
