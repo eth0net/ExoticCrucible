@@ -1,9 +1,13 @@
-﻿using RimWorld;
+﻿using LudeonTK;
+using RimWorld;
 using SaveOurShip2;
 using Verse;
 
 namespace ExoticHeatsink;
 
+/// <summary>
+/// The component implementation for the exotic heatsink
+/// </summary>
 [StaticConstructorOnStartup]
 public class CompShipHeatSink_Exotic : CompShipHeatSink
 {
@@ -13,9 +17,9 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
     public float reactionWorkLeft;
 
     /// <summary>
-    /// Whether the reaction can occur with the current heat and power state
+    /// Whether the reaction can occur with the current heat, power, and heatsink state
     /// </summary>
-    public bool CanReact => heatStored >= Props.reactionMinimumHeat && PowerTrader.PowerOn;
+    public bool CanReact => heatStored >= Props.reactionMinimumHeat && PowerTrader.PowerOn && !Disabled;
 
     /// <summary>
     /// The speed of the reaction, adjusted by heat and power
@@ -28,11 +32,14 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
 
             var speed = Props.reactionSpeedBase;
 
-            // apply heat bonus, adjusted by the bonus multiplier
+            speed *= ExoticHeatsinkSettings.globalReactionSpeedMultiplier;
+
+            // if heat is above the minimum, apply the heat bonus
             if (heatStored > Props.reactionMinimumHeat)
             {
-                // minimum of 1x bonus multiplier
-                speed *= (heatStored - Props.reactionMinimumHeat) * Props.reactionHeatBonus;
+                speed *= heatStored - Props.reactionMinimumHeat;
+                speed *= Props.reactionHeatBonus;
+                speed *= ExoticHeatsinkSettings.globalReactionHeatBonusMultiplier;
             }
 
             return speed;
@@ -59,14 +66,17 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
     }
 
     /// <summary>
-    /// Tick the component, 
+    /// Tick the component
     /// </summary>
     public override void CompTick()
     {
         base.CompTick();
 
-        // reduce work left by the reaction speed
-        reactionWorkLeft -= ReactionSpeed;
+        // update power consumption every 60 ticks
+        if (parent.IsHashIntervalTick(60))
+        {
+            PowerTrader.PowerOutput = CanReact ? -powerComp.Props.PowerConsumption : -powerComp.Props.idlePowerDraw;
+        }
 
         // check if work is done
         if (reactionWorkLeft <= 0)
@@ -79,5 +89,8 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
             // reset work left
             reactionWorkLeft += Props.reactionWorkAmount;
         }
+
+        // reduce work left by the reaction speed
+        reactionWorkLeft -= ReactionSpeed;
     }
 }

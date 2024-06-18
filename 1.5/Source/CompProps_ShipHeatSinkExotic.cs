@@ -3,6 +3,9 @@ using Verse;
 
 namespace ExoticHeatsink;
 
+/// <summary>
+/// The component properties for the exotic heatsink
+/// </summary>
 public class CompProps_ShipHeatSinkExotic : CompProps_ShipHeat
 {
     /// <summary>
