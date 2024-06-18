@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
 
-	<ResearchProjectDef ParentName="ShipResearchProjectBase">
+	<ResearchProjectDef ParentName="ArchotechResearchProjectBase">
 		<defName>ShipHeatsinkExotic</defName>
 		<label>exotic heatsink</label>
 		<description>Construct an exotic heatsink capable of producing exotic particles.</description>
-		<baseCost>3000</baseCost>
-		<techLevel>Spacer</techLevel>
+		<baseCost>6000</baseCost>
 		<prerequisites>
 			<li>ShipHeatManifold</li>
+			<li>ArchotechExotics</li>
+			<li>ArchotechReactor</li>
 		</prerequisites>
-		<tab>ResearchTabShip</tab>
-		<researchViewX>3</researchViewX>
-		<researchViewY>3.75</researchViewY>
+		<tab>ResearchTabArchotech</tab>
+		<researchViewX>1</researchViewX>
+		<researchViewY>8</researchViewY>
 		<generalRules>
-		  <rulesStrings>
-			<li>subject->exotic starship heatsink</li>
+			<rulesStrings>
+				<li>subject->exotic starship heatsink</li>
 
-			<li>subject_story->served aboard a ship whose AI was obsessed with contingency planning</li>
-			<li>subject_story->belonged to an ideoligion which eschewed material wealth as the temptation of Mammon</li>
-			<li>subject_story->took the Ishwallan naval motto of "Victory At Any Cost" a bit too literally</li>
+				<li>subject_story->served aboard a ship whose AI was obsessed with contingency planning</li>
+				<li>subject_story->belonged to an ideoligion which eschewed material wealth as the temptation of Mammon</li>
+				<li>subject_story->took the Ishwallan naval motto of "Victory At Any Cost" a bit too literally</li>
 
-			<li>subject_gerund->using heat aboard a starship</li>
-
-		  </rulesStrings>
+				<li>subject_gerund->using heat aboard a starship</li>
+			</rulesStrings>
 		</generalRules>
 	</ResearchProjectDef>
 
