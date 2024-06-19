@@ -11,6 +11,13 @@ namespace ExoticHeatsink;
 [StaticConstructorOnStartup]
 public class CompShipHeatSink_Exotic : CompShipHeatSink
 {
+#if DEBUG
+    [TweakValue("ExoticHeatsink", -5, 5)]
+    public static float progressBarOffsetZ = -0.9f;
+#endif
+
+    private Effecter progressBarEffecter;
+
     /// <summary>
     /// The amount of work left to complete the reaction
     /// </summary>
@@ -92,5 +99,24 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
 
         // reduce work left by the reaction speed
         reactionWorkLeft -= ReactionSpeed;
+
+        // update the progress bar effect
+        if (CanReact)
+        {
+            progressBarEffecter ??= EffecterDefOf.ProgressBar.Spawn();
+            progressBarEffecter.EffectTick(parent, TargetInfo.Invalid);
+            var mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
+            mote.progress = 1f - reactionWorkLeft / Props.reactionWorkAmount;
+#if DEBUG
+            mote.offsetZ = progressBarOffsetZ;
+#else
+            mote.offsetZ = -0.9f;
+#endif
+        }
+        else
+        {
+            progressBarEffecter?.Cleanup();
+            progressBarEffecter = null;
+        }
     }
 }
