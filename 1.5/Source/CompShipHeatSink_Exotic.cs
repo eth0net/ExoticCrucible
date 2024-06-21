@@ -1,5 +1,4 @@
-﻿using LudeonTK;
-using RimWorld;
+﻿using RimWorld;
 using SaveOurShip2;
 using Verse;
 
@@ -12,6 +11,12 @@ namespace ExoticHeatsink;
 public class CompShipHeatSink_Exotic : CompShipHeatSink
 {
 #if DEBUG
+    [TweakValue("ExoticHeatsink", 0.001f, 1000f)]
+    public static float tweakReactionSpeedMultiplier = 1f;
+
+    [TweakValue("ExoticHeatsink", 0.001f, 1000f)]
+    public static float tweakReactionHeatBonusMultiplier = 1f;
+
     [TweakValue("ExoticHeatsink", -5, 5)]
     public static float progressBarOffsetZ = -0.9f;
 #endif
@@ -41,12 +46,19 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
 
             speed *= ExoticHeatsinkSettings.globalReactionSpeedMultiplier;
 
+#if DEBUG
+            speed *= tweakReactionSpeedMultiplier;
+#endif
+
             // if heat is above the minimum, apply the heat bonus
             if (heatStored > Props.reactionMinimumHeat)
             {
                 speed *= heatStored - Props.reactionMinimumHeat;
                 speed *= Props.reactionHeatBonus;
                 speed *= ExoticHeatsinkSettings.globalReactionHeatBonusMultiplier;
+#if DEBUG
+                speed *= tweakReactionHeatBonusMultiplier;
+#endif
             }
 
             return speed;

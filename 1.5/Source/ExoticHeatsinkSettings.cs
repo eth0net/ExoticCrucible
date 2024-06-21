@@ -39,10 +39,10 @@ public class ExoticHeatsinkSettings : ModSettings
         listing_Standard.Begin(inRect);
 
         listing_Standard.Label("ExoticHeatsink.GlobalReactionSpeedMultiplier".Translate() + ": " + globalReactionSpeedMultiplier);
-        globalReactionSpeedMultiplier = listing_Standard.Slider(globalReactionSpeedMultiplier, 0.001f, 1000f);
+        globalReactionSpeedMultiplier = listing_Standard.Slider(globalReactionSpeedMultiplier, 0.1f, 10f);
 
         listing_Standard.Label("ExoticHeatsink.GlobalReactionHeatBonusMultiplier".Translate() + ": " + globalReactionHeatBonusMultiplier);
-        globalReactionHeatBonusMultiplier = listing_Standard.Slider(globalReactionHeatBonusMultiplier, 0.001f, 1000f);
+        globalReactionHeatBonusMultiplier = listing_Standard.Slider(globalReactionHeatBonusMultiplier, 0.1f, 10f);
 
         listing_Standard.Gap();
 
