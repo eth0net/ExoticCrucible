@@ -3,8 +3,8 @@
 
 	<ResearchProjectDef ParentName="ArchotechResearchProjectBase">
 		<defName>ShipHeatsinkExotic</defName>
-		<label>exotic heatsink</label>
-		<description>Construct an exotic heatsink capable of producing exotic particles.</description>
+		<label>exotic crucible</label>
+		<description>Design an exotic crucible capable of producing exotic particles.</description>
 		<baseCost>6000</baseCost>
 		<prerequisites>
 			<li>ShipHeatManifold</li>
@@ -16,7 +16,7 @@
 		<researchViewY>8</researchViewY>
 		<generalRules>
 			<rulesStrings>
-				<li>subject->exotic starship heatsink</li>
+				<li>subject->exotic starship crucible</li>
 
 				<li>subject_story->served aboard a ship whose AI was obsessed with contingency planning</li>
 				<li>subject_story->belonged to an ideoligion which eschewed material wealth as the temptation of Mammon</li>
