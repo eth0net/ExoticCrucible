@@ -3,7 +3,7 @@
 	<ThingDef ParentName="ShipHeatsinkBase">
 		<defName>ShipExoticCrucible</defName>
 		<label>exotic crucible</label>
-		<description>An archotech coolant tank that stores excess heat produced by a ship, slowly using it to produce exotic particles. Reactions to produce exotic particles will occur much faster when enough heat and power are available. Will take damage if coolant gets near maximum heat capacity and release all heat stored if destroyed. Will slowly replenish capacity from depletion when not in battle. Does not function if the ship is cloaked.\n\nHeat capacity: 6000Hu\nHeat required for reaction: 3000Hu\nHeat loss: 2Hu/s</description>
+		<description>An archotech coolant tank that stores excess heat produced by a ship, slowly using it to produce exotic particles. Reactions to produce exotic particles will occur much faster when enough heat and power are available. Will take damage if coolant gets near maximum heat capacity and release all heat stored if destroyed. Will slowly replenish capacity from depletion when not in battle. Does not function if the ship is cloaked.\n\nWhat do you mean you reverse engineered parts of the spore and glued it on the heatgrid, did i tell you to do that, and what the heck is a none expanding reversed of an inversed black hole?\n\nHeat capacity: 6000Hu\nHeat required for reaction: 3000Hu\nHeat loss: 2Hu/s</description>
 		<size>(4,4)</size>
 		<graphicData>
 			<texPath>Things/Building/Ship/ExoticCrucible</texPath>
