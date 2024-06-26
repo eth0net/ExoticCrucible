@@ -2,22 +2,22 @@
 using SaveOurShip2;
 using Verse;
 
-namespace ExoticHeatsink;
+namespace ExoticCrucible;
 
 /// <summary>
-/// The component implementation for the exotic heatsink
+/// The component implementation for the exotic crucible
 /// </summary>
 [StaticConstructorOnStartup]
-public class CompShipHeatSink_Exotic : CompShipHeatSink
+public class CompShipExoticCrucible : CompShipHeatSink
 {
 #if DEBUG
-    [TweakValue("ExoticHeatsink", 0.001f, 1000f)]
+    [TweakValue("ExoticCrucible", 0.001f, 1000f)]
     public static float tweakReactionSpeedMultiplier = 1f;
 
-    [TweakValue("ExoticHeatsink", 0.001f, 1000f)]
+    [TweakValue("ExoticCrucible", 0.001f, 1000f)]
     public static float tweakReactionHeatBonusMultiplier = 1f;
 
-    [TweakValue("ExoticHeatsink", -5, 5)]
+    [TweakValue("ExoticCrucible", -5, 5)]
     public static float progressBarOffsetZ = -0.9f;
 #endif
 
@@ -29,7 +29,7 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
     public float reactionWorkLeft;
 
     /// <summary>
-    /// Whether the reaction can occur with the current heat, power, and heatsink state
+    /// Whether the reaction can occur with the current heat, power, and exotic crucible state
     /// </summary>
     public bool CanReact => heatStored >= Props.reactionMinimumHeat && PowerTrader.PowerOn && !Disabled;
 
@@ -44,7 +44,7 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
 
             var speed = Props.reactionSpeedBase;
 
-            speed *= ExoticHeatsinkSettings.globalReactionSpeedMultiplier;
+            speed *= ExoticCrucibleSettings.globalReactionSpeedMultiplier;
 
 #if DEBUG
             speed *= tweakReactionSpeedMultiplier;
@@ -55,7 +55,7 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
             {
                 speed *= heatStored - Props.reactionMinimumHeat;
                 speed *= Props.reactionHeatBonus;
-                speed *= ExoticHeatsinkSettings.globalReactionHeatBonusMultiplier;
+                speed *= ExoticCrucibleSettings.globalReactionHeatBonusMultiplier;
 #if DEBUG
                 speed *= tweakReactionHeatBonusMultiplier;
 #endif
@@ -71,9 +71,9 @@ public class CompShipHeatSink_Exotic : CompShipHeatSink
     public CompPowerTrader PowerTrader => (CompPowerTrader)powerComp;
 
     /// <summary>
-    /// The properties of the exotic heat sink
+    /// The properties of the exotic crucible
     /// </summary>
-    public new CompProps_ShipHeatSinkExotic Props => (CompProps_ShipHeatSinkExotic)props;
+    public new CompProps_ShipExoticCrucible Props => (CompProps_ShipExoticCrucible)props;
 
     /// <summary>
     /// Expose data to save/load

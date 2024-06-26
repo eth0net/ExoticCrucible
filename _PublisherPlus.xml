@@ -6,6 +6,6 @@
     <exclude>1.5\packages</exclude>
     <exclude>1.5\Source</exclude>
     <exclude>Images</exclude>
-    <exclude>ExoticHeatsink.textstudio</exclude>
+    <exclude>ExoticCrucible.textstudio</exclude>
   </Excluded>
 </Configuration>

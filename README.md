@@ -1,4 +1,4 @@
-# ![ExoticHeatsink](./About/Preview.png)
+# ![Exotic Crucible](./About/Preview.png)
 
 Use your ship heat to produce exotic particles!
 
@@ -6,7 +6,7 @@ Use your ship heat to produce exotic particles!
 
 ## Features
 
-Adds a new heatsink for Save Our Ship 2 to produce exotic particles from excess hull heat and power.
+Adds a new exotic crucible for Save Our Ship 2 to produce exotic particles from excess hull heat and power.
 
 ## Existing Saves
 

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
-  <ExoticHeatsink>Exotic Heatsink</ExoticHeatsink>
-  <ExoticHeatsink.GlobalReactionSpeedMultiplier>Global Reaction Speed Multiplier</ExoticHeatsink.GlobalReactionSpeedMultiplier>
-  <ExoticHeatsink.GlobalReactionHeatBonusMultiplier>Global Reaction Heat Bonus Multiplier</ExoticHeatsink.GlobalReactionHeatBonusMultiplier>
+  <ExoticCrucible>Exotic Crucible</ExoticCrucible>
+  <ExoticCrucible.GlobalReactionSpeedMultiplier>Global Reaction Speed Multiplier</ExoticCrucible.GlobalReactionSpeedMultiplier>
+  <ExoticCrucible.GlobalReactionHeatBonusMultiplier>Global Reaction Heat Bonus Multiplier</ExoticCrucible.GlobalReactionHeatBonusMultiplier>
 
 </LanguageData>

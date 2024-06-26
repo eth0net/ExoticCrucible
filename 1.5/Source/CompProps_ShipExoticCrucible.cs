@@ -1,12 +1,12 @@
 ﻿using SaveOurShip2;
 using Verse;
 
-namespace ExoticHeatsink;
+namespace ExoticCrucible;
 
 /// <summary>
-/// The component properties for the exotic heatsink
+/// The component properties for the exotic crucible
 /// </summary>
-public class CompProps_ShipHeatSinkExotic : CompProps_ShipHeat
+public class CompProps_ShipExoticCrucible : CompProps_ShipHeat
 {
     /// <summary>
     /// The amount of work required to complete the reaction

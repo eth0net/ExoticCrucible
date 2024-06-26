@@ -2,12 +2,12 @@
 using UnityEngine;
 using Verse;
 
-namespace ExoticHeatsink;
+namespace ExoticCrucible;
 
 /// <summary>
 /// The settings for the mod
 /// </summary>
-public class ExoticHeatsinkSettings : ModSettings
+public class ExoticCrucibleSettings : ModSettings
 {
     /// <summary>
     /// The global multiplier applied to the reaction speed
@@ -38,15 +38,15 @@ public class ExoticHeatsinkSettings : ModSettings
         var listing_Standard = new Listing_Standard();
         listing_Standard.Begin(inRect);
 
-        listing_Standard.Label("ExoticHeatsink.GlobalReactionSpeedMultiplier".Translate() + ": " + globalReactionSpeedMultiplier);
+        listing_Standard.Label("ExoticCrucible.GlobalReactionSpeedMultiplier".Translate() + ": " + globalReactionSpeedMultiplier);
         globalReactionSpeedMultiplier = listing_Standard.Slider(globalReactionSpeedMultiplier, 0.1f, 10f);
 
-        listing_Standard.Label("ExoticHeatsink.GlobalReactionHeatBonusMultiplier".Translate() + ": " + globalReactionHeatBonusMultiplier);
+        listing_Standard.Label("ExoticCrucible.GlobalReactionHeatBonusMultiplier".Translate() + ": " + globalReactionHeatBonusMultiplier);
         globalReactionHeatBonusMultiplier = listing_Standard.Slider(globalReactionHeatBonusMultiplier, 0.1f, 10f);
 
         listing_Standard.Gap();
 
-        if (listing_Standard.ButtonText("ExoticHeatsink.ResetSettings".Translate()))
+        if (listing_Standard.ButtonText("ExoticCrucible.ResetSettings".Translate()))
         {
             ResetSettings();
         }

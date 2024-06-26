@@ -1,12 +1,11 @@
 <Defs>
 
 	<ThingDef ParentName="ShipHeatsinkBase">
-		<defName>ShipHeatsinkExotic</defName>
+		<defName>ShipExoticCrucible</defName>
 		<label>exotic crucible</label>
 		<description>An archotech coolant tank that stores excess heat produced by a ship, slowly using it to produce exotic particles. Reactions to produce exotic particles will occur much faster when enough heat and power are available. Will take damage if coolant gets near maximum heat capacity and release all heat stored if destroyed. Will slowly replenish capacity from depletion when not in battle. Does not function if the ship is cloaked.\n\nHeat capacity: 6000Hu\nHeat required for reaction: 3000Hu\nHeat loss: 2Hu/s</description>
 		<size>(4,4)</size>
 		<graphicData>
-			<!-- <texPath>Things/Building/Ship/HeatsinkExotic</texPath> -->
 			<texPath>Things/Building/Ship/ExoticCrucible</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(4,4)</drawSize>
@@ -29,8 +28,8 @@
 			<ArchotechExoticParticles>15</ArchotechExoticParticles>
 		</costList>
 		<comps>
-			<li Class="ExoticHeatsink.CompProps_ShipHeatSinkExotic">
-				<compClass>ExoticHeatsink.CompShipHeatSink_Exotic</compClass>
+			<li Class="ExoticCrucible.CompProps_ShipExoticCrucible">
+				<compClass>ExoticCrucible.CompShipExoticCrucible</compClass>
 				<showOnRoof>false</showOnRoof>
 				<heatCapacity>6000</heatCapacity>
 				<heatLoss>4</heatLoss>
@@ -58,7 +57,7 @@
 			<paintable>true</paintable>
 		</building>
 		<researchPrerequisites>
-			<li>ShipHeatsinkExotic</li>
+			<li>ShipExoticCrucible</li>
 		</researchPrerequisites>
 	</ThingDef>
 

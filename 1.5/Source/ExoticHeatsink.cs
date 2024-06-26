@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
 using Verse;
 
-namespace ExoticHeatsink;
+namespace ExoticCrucible;
 
 /// <summary>
-/// The main class for the ExoticHeatsink mod
+/// The main class for the ExoticCrucible mod
 /// </summary>
-public class ExoticHeatsink : Mod
+public class ExoticCrucible : Mod
 {
     /// <summary>
     /// The settings for the mod
     /// </summary>
-    public ExoticHeatsinkSettings settings;
+    public ExoticCrucibleSettings settings;
 
     /// <summary>
     /// Constructor for the mod class to get the settings
     /// </summary>
     /// <param name="content"></param>
-    public ExoticHeatsink(ModContentPack content) : base(content)
+    public ExoticCrucible(ModContentPack content) : base(content)
     {
-        settings = GetSettings<ExoticHeatsinkSettings>();
+        settings = GetSettings<ExoticCrucibleSettings>();
     }
 
     /// <summary>
@@ -36,5 +36,5 @@ public class ExoticHeatsink : Mod
     /// Add the settings category
     /// </summary>
     /// <returns></returns>
-    public override string SettingsCategory() => "ExoticHeatsink".Translate();
+    public override string SettingsCategory() => "ExoticCrucible".Translate();
 }

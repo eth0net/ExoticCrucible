@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>ExoticHeatsink</name>
+  <name>ExoticCrucible</name>
   <author>synthe0n</author>
-  <packageId>eth0net.ExoticHeatsink</packageId>
+  <packageId>eth0net.ExoticCrucible</packageId>
   <!-- <url>steam://url/CommunityFilePage/xxx</url> -->
   <supportedVersions>
     <li>1.5</li>
   </supportedVersions>
   <description>Use your ship heat to produce exotic particles!
 
-Commissioned in the RimWorld Mod Market
+    Commissioned in the RimWorld Mod Market
 
-== Features ==
+    == Features ==
 
-Adds a new heatsink for Save Our Ship 2 to produce exotic particles from excess hull heat and power.
+    Adds a new exotic crucible for Save Our Ship 2 to produce exotic particles from excess hull heat and power.
 
-== Existing Saves ==
+    == Existing Saves ==
 
-This mod should be safe to add or remove from saves, as long as none of the buildings have been constructed.
+    This mod should be safe to add or remove from saves, as long as none of the buildings have been constructed.
 
-== Bugs and Requests ==
+    == Bugs and Requests ==
 
-Let me know if there are any bugs or requests, I'll happily do my best to fix them up!
+    Let me know if there are any bugs or requests, I'll happily do my best to fix them up!
 
-MIT License | Open to contributions and suggestions!
+    MIT License | Open to contributions and suggestions!
   </description>
   <modDependencies>
     <li>

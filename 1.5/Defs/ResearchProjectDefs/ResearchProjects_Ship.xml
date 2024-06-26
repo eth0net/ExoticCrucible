@@ -2,7 +2,7 @@
 <Defs>
 
 	<ResearchProjectDef ParentName="ArchotechResearchProjectBase">
-		<defName>ShipHeatsinkExotic</defName>
+		<defName>ShipExoticCrucible</defName>
 		<label>exotic crucible</label>
 		<description>Design an exotic crucible capable of producing exotic particles.</description>
 		<baseCost>6000</baseCost>
