@@ -1,4 +1,7 @@
-﻿using RimWorld;
+﻿#if DEBUG
+using LudeonTK;
+#endif
+using RimWorld;
 using SaveOurShip2;
 using Verse;
 
