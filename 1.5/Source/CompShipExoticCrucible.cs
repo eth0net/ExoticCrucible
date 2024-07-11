@@ -1,43 +1,34 @@
-﻿#if DEBUG
-using LudeonTK;
-#endif
+﻿using System.Diagnostics.CodeAnalysis;
 using RimWorld;
 using SaveOurShip2;
 using Verse;
+#if DEBUG
+using LudeonTK;
+#endif
 
 namespace ExoticCrucible;
 
 /// <summary>
-/// The component implementation for the exotic crucible
+///     The component implementation for the exotic crucible
 /// </summary>
 [StaticConstructorOnStartup]
+[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
 public class CompShipExoticCrucible : CompShipHeatSink
 {
-#if DEBUG
-    [TweakValue("ExoticCrucible", 0.001f, 1000f)]
-    public static float tweakReactionSpeedMultiplier = 1f;
-
-    [TweakValue("ExoticCrucible", 0.001f, 1000f)]
-    public static float tweakReactionHeatBonusMultiplier = 1f;
-
-    [TweakValue("ExoticCrucible", -5, 5)]
-    public static float progressBarOffsetZ = -0.9f;
-#endif
-
-    private Effecter progressBarEffecter;
+    private Effecter _progressBarEffecter;
 
     /// <summary>
-    /// The amount of work left to complete the reaction
+    ///     The amount of work left to complete the reaction
     /// </summary>
-    public float reactionWorkLeft;
+    public float ReactionWorkLeft;
 
     /// <summary>
-    /// Whether the reaction can occur with the current heat, power, and exotic crucible state
+    ///     Whether the reaction can occur with the current heat, power, and exotic crucible state
     /// </summary>
     public bool CanReact => heatStored >= Props.reactionMinimumHeat && PowerTrader.PowerOn && !Disabled;
 
     /// <summary>
-    /// The speed of the reaction, adjusted by heat and power
+    ///     The speed of the reaction, adjusted by heat and power
     /// </summary>
     public float ReactionSpeed
     {
@@ -54,54 +45,52 @@ public class CompShipExoticCrucible : CompShipHeatSink
 #endif
 
             // if heat is above the minimum, apply the heat bonus
-            if (heatStored > Props.reactionMinimumHeat)
-            {
-                speed *= heatStored - Props.reactionMinimumHeat;
-                speed *= Props.reactionHeatBonus;
-                speed *= ExoticCrucibleSettings.globalReactionHeatBonusMultiplier;
+            if (heatStored < Props.reactionMinimumHeat) return speed;
+
+            speed *= heatStored - Props.reactionMinimumHeat;
+            speed *= Props.reactionHeatBonus;
+            speed *= ExoticCrucibleSettings.globalReactionHeatBonusMultiplier;
 #if DEBUG
-                speed *= tweakReactionHeatBonusMultiplier;
+            speed *= tweakReactionHeatBonusMultiplier;
 #endif
-            }
 
             return speed;
         }
     }
 
     /// <summary>
-    /// The power trader component
+    ///     The power trader component
     /// </summary>
     public CompPowerTrader PowerTrader => (CompPowerTrader)powerComp;
 
     /// <summary>
-    /// The properties of the exotic crucible
+    ///     The properties of the exotic crucible
     /// </summary>
     public new CompProps_ShipExoticCrucible Props => (CompProps_ShipExoticCrucible)props;
 
     /// <summary>
-    /// Expose data to save/load
+    ///     Expose data to save/load
     /// </summary>
     public override void PostExposeData()
     {
         base.PostExposeData();
-        Scribe_Values.Look(ref reactionWorkLeft, "reactionWorkLeft");
+        Scribe_Values.Look(ref ReactionWorkLeft, "reactionWorkLeft");
     }
 
     /// <summary>
-    /// Tick the component
+    ///     Tick the component
     /// </summary>
     public override void CompTick()
     {
         base.CompTick();
 
         // update power consumption every 60 ticks
-        if (parent.IsHashIntervalTick(60))
-        {
-            PowerTrader.PowerOutput = CanReact ? -powerComp.Props.PowerConsumption : -powerComp.Props.idlePowerDraw;
-        }
+        if (!parent.IsHashIntervalTick(60)) return;
+
+        PowerTrader.PowerOutput = CanReact ? -powerComp.Props.PowerConsumption : -powerComp.Props.idlePowerDraw;
 
         // check if work is done
-        if (reactionWorkLeft <= 0)
+        if (ReactionWorkLeft <= 0)
         {
             // spawn reaction product
             var thing = ThingMaker.MakeThing(Props.reactionProduct);
@@ -109,19 +98,19 @@ public class CompShipExoticCrucible : CompShipHeatSink
             GenPlace.TryPlaceThing(thing, parent.Position, parent.Map, ThingPlaceMode.Near);
 
             // reset work left
-            reactionWorkLeft += Props.reactionWorkAmount;
+            ReactionWorkLeft += Props.reactionWorkAmount;
         }
 
         // reduce work left by the reaction speed
-        reactionWorkLeft -= ReactionSpeed;
+        ReactionWorkLeft -= ReactionSpeed;
 
         // update the progress bar effect
         if (CanReact)
         {
-            progressBarEffecter ??= EffecterDefOf.ProgressBar.Spawn();
-            progressBarEffecter.EffectTick(parent, TargetInfo.Invalid);
-            var mote = ((SubEffecter_ProgressBar)progressBarEffecter.children[0]).mote;
-            mote.progress = 1f - reactionWorkLeft / Props.reactionWorkAmount;
+            _progressBarEffecter ??= EffecterDefOf.ProgressBar.Spawn();
+            _progressBarEffecter.EffectTick(parent, TargetInfo.Invalid);
+            var mote = ((SubEffecter_ProgressBar)_progressBarEffecter.children[0]).mote;
+            mote.progress = 1f - ReactionWorkLeft / Props.reactionWorkAmount;
 #if DEBUG
             mote.offsetZ = progressBarOffsetZ;
 #else
@@ -130,8 +119,25 @@ public class CompShipExoticCrucible : CompShipHeatSink
         }
         else
         {
-            progressBarEffecter?.Cleanup();
-            progressBarEffecter = null;
+            _progressBarEffecter?.Cleanup();
+            _progressBarEffecter = null;
         }
     }
+
+#if DEBUG
+    [TweakValue("ExoticCrucible", 0.001f, 1000f)]
+    [SuppressMessage("ReSharper", "ConvertToConstant.Global")]
+    [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
+    public static float tweakReactionSpeedMultiplier = 1f;
+
+    [TweakValue("ExoticCrucible", 0.001f, 1000f)]
+    [SuppressMessage("ReSharper", "ConvertToConstant.Global")]
+    [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
+    public static float tweakReactionHeatBonusMultiplier = 1f;
+
+    [TweakValue("ExoticCrucible", -5, 5)]
+    [SuppressMessage("ReSharper", "ConvertToConstant.Global")]
+    [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
+    public static float progressBarOffsetZ = -0.9f;
+#endif
 }

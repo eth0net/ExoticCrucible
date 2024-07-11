@@ -1,9 +1,16 @@
+# macOS junk
+.DS_Store
+
+# jetbrains junk
+.idea/
+
 # visual studio junk
 .vs/
 
 # dotnet junk
 bin/
 obj/
+*.DotSettings.user
 
 # nuget packages
 packages/

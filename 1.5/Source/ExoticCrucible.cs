@@ -1,40 +1,45 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics.CodeAnalysis;
+using UnityEngine;
 using Verse;
 
 namespace ExoticCrucible;
 
 /// <summary>
-/// The main class for the ExoticCrucible mod
+///     The main class for the ExoticCrucible mod
 /// </summary>
+[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
 public class ExoticCrucible : Mod
 {
     /// <summary>
-    /// The settings for the mod
+    ///     The settings for the mod
     /// </summary>
-    public ExoticCrucibleSettings settings;
+    public readonly ExoticCrucibleSettings Settings;
 
     /// <summary>
-    /// Constructor for the mod class to get the settings
+    ///     Constructor for the mod class to get the settings
     /// </summary>
     /// <param name="content"></param>
     public ExoticCrucible(ModContentPack content) : base(content)
     {
-        settings = GetSettings<ExoticCrucibleSettings>();
+        Settings = GetSettings<ExoticCrucibleSettings>();
     }
 
     /// <summary>
-    /// Draw the settings window
+    ///     Draw the settings window
     /// </summary>
     /// <param name="inRect"></param>
     public override void DoSettingsWindowContents(Rect inRect)
     {
-        settings.DoSettingsWindowContents(inRect);
+        ExoticCrucibleSettings.DoSettingsWindowContents(inRect);
         base.DoSettingsWindowContents(inRect);
     }
 
     /// <summary>
-    /// Add the settings category
+    ///     Add the settings category
     /// </summary>
     /// <returns></returns>
-    public override string SettingsCategory() => "ExoticCrucible".Translate();
+    public override string SettingsCategory()
+    {
+        return "ExoticCrucible".Translate();
+    }
 }

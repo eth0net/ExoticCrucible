@@ -1,26 +1,25 @@
-﻿using RimWorld;
-using UnityEngine;
+﻿using UnityEngine;
 using Verse;
 
 namespace ExoticCrucible;
 
 /// <summary>
-/// The settings for the mod
+///     The settings for the mod
 /// </summary>
 public class ExoticCrucibleSettings : ModSettings
 {
     /// <summary>
-    /// The global multiplier applied to the reaction speed
+    ///     The global multiplier applied to the reaction speed
     /// </summary>
     public static float globalReactionSpeedMultiplier = 1f;
 
     /// <summary>
-    /// The global multiplier applied to the reaction heat bonus
+    ///     The global multiplier applied to the reaction heat bonus
     /// </summary>
     public static float globalReactionHeatBonusMultiplier = 1f;
 
     /// <summary>
-    /// Expose data to save/load
+    ///     Expose data to save/load
     /// </summary>
     public override void ExposeData()
     {
@@ -30,34 +29,33 @@ public class ExoticCrucibleSettings : ModSettings
     }
 
     /// <summary>
-    /// Draw the settings window
+    ///     Draw the settings window
     /// </summary>
     /// <param name="inRect"></param>
-    public void DoSettingsWindowContents(Rect inRect)
+    public static void DoSettingsWindowContents(Rect inRect)
     {
-        var listing_Standard = new Listing_Standard();
-        listing_Standard.Begin(inRect);
+        var listingStandard = new Listing_Standard();
+        listingStandard.Begin(inRect);
 
-        listing_Standard.Label("ExoticCrucible.GlobalReactionSpeedMultiplier".Translate() + ": " + globalReactionSpeedMultiplier);
-        globalReactionSpeedMultiplier = listing_Standard.Slider(globalReactionSpeedMultiplier, 0.1f, 10f);
+        listingStandard.Label("ExoticCrucible.GlobalReactionSpeedMultiplier".Translate() + ": " +
+                              globalReactionSpeedMultiplier);
+        globalReactionSpeedMultiplier = listingStandard.Slider(globalReactionSpeedMultiplier, 0.1f, 10f);
 
-        listing_Standard.Label("ExoticCrucible.GlobalReactionHeatBonusMultiplier".Translate() + ": " + globalReactionHeatBonusMultiplier);
-        globalReactionHeatBonusMultiplier = listing_Standard.Slider(globalReactionHeatBonusMultiplier, 0.1f, 10f);
+        listingStandard.Label("ExoticCrucible.GlobalReactionHeatBonusMultiplier".Translate() + ": " +
+                              globalReactionHeatBonusMultiplier);
+        globalReactionHeatBonusMultiplier = listingStandard.Slider(globalReactionHeatBonusMultiplier, 0.1f, 10f);
 
-        listing_Standard.Gap();
+        listingStandard.Gap();
 
-        if (listing_Standard.ButtonText("ExoticCrucible.ResetSettings".Translate()))
-        {
-            ResetSettings();
-        }
+        if (listingStandard.ButtonText("ExoticCrucible.ResetSettings".Translate())) ResetSettings();
 
-        listing_Standard.End();
+        listingStandard.End();
     }
 
     /// <summary>
-    /// Reset the settings to default
+    ///     Reset the settings to default
     /// </summary>
-    public void ResetSettings()
+    private static void ResetSettings()
     {
         globalReactionSpeedMultiplier = 1f;
         globalReactionHeatBonusMultiplier = 1f;

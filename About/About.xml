@@ -4,9 +4,6 @@
   <author>synthe0n</author>
   <packageId>eth0net.ExoticCrucible</packageId>
   <url>steam://url/CommunityFilePage/3275542283</url>
-  <supportedVersions>
-    <li>1.5</li>
-  </supportedVersions>
   <description>Use your ship heat to produce exotic particles!
 
 Commissioned in the RimWorld Mod Market
@@ -25,6 +22,9 @@ Let me know if there are any bugs or requests, I'll happily do my best to fix th
 
 MIT License | Open to contributions and suggestions!
   </description>
+  <supportedVersions>
+    <li>1.5</li>
+  </supportedVersions>
   <modDependencies>
     <li>
       <packageId>kentington.saveourship2</packageId>
