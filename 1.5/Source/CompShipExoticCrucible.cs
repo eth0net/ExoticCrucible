@@ -77,6 +77,13 @@ public class CompShipExoticCrucible : CompShipHeatSink
         Scribe_Values.Look(ref ReactionWorkLeft, "reactionWorkLeft");
     }
 
+    public override void PostSpawnSetup(bool respawningAfterLoad)
+    {
+        base.PostSpawnSetup(respawningAfterLoad);
+        if (respawningAfterLoad) return;
+        ReactionWorkLeft = Props.reactionWorkAmount;
+    }
+
     /// <summary>
     ///     Tick the component
     /// </summary>
