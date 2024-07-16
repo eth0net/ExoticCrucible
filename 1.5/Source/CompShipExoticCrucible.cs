@@ -13,34 +13,44 @@ namespace ExoticCrucible;
 /// </summary>
 [StaticConstructorOnStartup]
 [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+[SuppressMessage("ReSharper", "UnusedType.Global")]
 public class CompShipExoticCrucible : CompShipHeatSink
 {
     private Effecter _progressBarEffecter;
 
     /// <summary>
-    ///     The amount of work left to complete the reaction
+    ///     How frequently to update the reaction.
+    /// </summary>
+    private const int TickInterval = 60;
+
+    /// <summary>
+    ///     The amount of work left to complete the reaction.
     /// </summary>
     public float ReactionWorkLeft;
 
     /// <summary>
-    ///     Whether the reaction can occur with the current heat, power, and exotic crucible state
+    ///     Whether the reaction can occur with the current state.
     /// </summary>
-    public bool CanReact => heatStored >= Props.reactionMinimumHeat && PowerTrader.PowerOn && !Disabled;
+    public bool CanReact => (!ExoticCrucibleSettings.reactionRequiresHeat || heatStored >= Props.reactionMinimumHeat) &&
+                            PowerTrader.PowerOn && !Disabled;
 
     /// <summary>
-    ///     The speed of the reaction, adjusted by heat and power
+    ///     The speed of the reaction including various modifiers.
     /// </summary>
     public float ReactionSpeed
     {
         get
         {
-            if (!CanReact) return 0;
-
             var speed = Props.reactionSpeedBase;
 
+            // apply the tick interval to account for the fact that we don't check every tick
+            speed *= TickInterval;
+
+            // apply the global speed multiplier
             speed *= ExoticCrucibleSettings.globalReactionSpeedMultiplier;
 
 #if DEBUG
+            // apply the tweak speed multiplier
             speed *= tweakReactionSpeedMultiplier;
 #endif
 
@@ -59,17 +69,17 @@ public class CompShipExoticCrucible : CompShipHeatSink
     }
 
     /// <summary>
-    ///     The power trader component
+    ///     The power trader component.
     /// </summary>
     public CompPowerTrader PowerTrader => (CompPowerTrader)powerComp;
 
     /// <summary>
-    ///     The properties of the exotic crucible
+    ///     The properties of the exotic crucible.
     /// </summary>
     public new CompProps_ShipExoticCrucible Props => (CompProps_ShipExoticCrucible)props;
 
     /// <summary>
-    ///     Expose data to save/load
+    ///     Expose data to save/load.
     /// </summary>
     public override void PostExposeData()
     {
@@ -77,6 +87,10 @@ public class CompShipExoticCrucible : CompShipHeatSink
         Scribe_Values.Look(ref ReactionWorkLeft, "reactionWorkLeft");
     }
 
+    /// <summary>
+    ///     Post spawn setup.
+    /// </summary>
+    /// <param name="respawningAfterLoad"></param>
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
@@ -85,16 +99,36 @@ public class CompShipExoticCrucible : CompShipHeatSink
     }
 
     /// <summary>
-    ///     Tick the component
+    ///     Tick the component.
     /// </summary>
     public override void CompTick()
     {
         base.CompTick();
 
-        // update power consumption every 60 ticks
-        if (!parent.IsHashIntervalTick(60)) return;
+        // only check every 60 ticks
+        if (!parent.IsHashIntervalTick(TickInterval)) return;
 
-        PowerTrader.PowerOutput = CanReact ? -powerComp.Props.PowerConsumption : -powerComp.Props.idlePowerDraw;
+        // skip the tick if we can't react
+        if (!CanReact)
+        {
+            // set power consumption to idle
+            PowerTrader.PowerOutput = -PowerTrader.Props.idlePowerDraw;
+
+            // cleanup the progress bar effect
+            _progressBarEffecter?.Cleanup();
+            _progressBarEffecter = null;
+
+            return;
+        }
+
+        // set power consumption to the reaction power curve if we have enough heat or idle if not
+        // speed is calculated with or without heat bonus independently in ReactionSpeed
+        PowerTrader.PowerOutput = heatStored >= Props.reactionMinimumHeat
+            ? -Props.reactionHeatPowerCurve.Evaluate(heatStored)
+            : -PowerTrader.Props.idlePowerDraw;
+
+        // reduce work left by the reaction speed
+        ReactionWorkLeft -= ReactionSpeed;
 
         // check if work is done
         if (ReactionWorkLeft <= 0)
@@ -108,27 +142,12 @@ public class CompShipExoticCrucible : CompShipHeatSink
             ReactionWorkLeft += Props.reactionWorkAmount;
         }
 
-        // reduce work left by the reaction speed
-        ReactionWorkLeft -= ReactionSpeed;
-
         // update the progress bar effect
-        if (CanReact)
-        {
-            _progressBarEffecter ??= EffecterDefOf.ProgressBar.Spawn();
-            _progressBarEffecter.EffectTick(parent, TargetInfo.Invalid);
-            var mote = ((SubEffecter_ProgressBar)_progressBarEffecter.children[0]).mote;
-            mote.progress = 1f - ReactionWorkLeft / Props.reactionWorkAmount;
-#if DEBUG
-            mote.offsetZ = progressBarOffsetZ;
-#else
-            mote.offsetZ = -0.9f;
-#endif
-        }
-        else
-        {
-            _progressBarEffecter?.Cleanup();
-            _progressBarEffecter = null;
-        }
+        _progressBarEffecter ??= EffecterDefOf.ProgressBar.Spawn();
+        _progressBarEffecter.EffectTick(parent, TargetInfo.Invalid);
+        var mote = ((SubEffecter_ProgressBar)_progressBarEffecter.children[0]).mote;
+        mote.progress = 1f - ReactionWorkLeft / Props.reactionWorkAmount;
+        mote.offsetZ = -0.9f;
     }
 
 #if DEBUG
@@ -141,10 +160,5 @@ public class CompShipExoticCrucible : CompShipHeatSink
     [SuppressMessage("ReSharper", "ConvertToConstant.Global")]
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
     public static float tweakReactionHeatBonusMultiplier = 1f;
-
-    [TweakValue("ExoticCrucible", -5, 5)]
-    [SuppressMessage("ReSharper", "ConvertToConstant.Global")]
-    [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
-    public static float progressBarOffsetZ = -0.9f;
 #endif
 }

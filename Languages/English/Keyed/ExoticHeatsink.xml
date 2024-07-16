@@ -2,8 +2,9 @@
 <LanguageData>
 
   <ExoticCrucible>Exotic Crucible</ExoticCrucible>
-  <ExoticCrucible.GlobalReactionSpeedMultiplier>Global Reaction Speed Multiplier</ExoticCrucible.GlobalReactionSpeedMultiplier>
-  <ExoticCrucible.GlobalReactionHeatBonusMultiplier>Global Reaction Heat Bonus Multiplier</ExoticCrucible.GlobalReactionHeatBonusMultiplier>
+  <ExoticCrucible.GlobalReactionSpeedMultiplier>Global reaction speed multiplier</ExoticCrucible.GlobalReactionSpeedMultiplier>
+  <ExoticCrucible.GlobalReactionHeatBonusMultiplier>Global reaction heat bonus multiplier</ExoticCrucible.GlobalReactionHeatBonusMultiplier>
+  <ExoticCrucible.ReactionRequiresHeat>Reaction requires heat</ExoticCrucible.ReactionRequiresHeat>
   <ExoticCrucible.ResetSettings>Reset Settings</ExoticCrucible.ResetSettings>
 
 </LanguageData>

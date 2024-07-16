@@ -19,12 +19,18 @@ public class ExoticCrucibleSettings : ModSettings
     public static float globalReactionHeatBonusMultiplier = 1f;
 
     /// <summary>
+    ///     Whether to require heat for reactions or just accelerate them
+    /// </summary>
+    public static bool reactionRequiresHeat;
+
+    /// <summary>
     ///     Expose data to save/load
     /// </summary>
     public override void ExposeData()
     {
         Scribe_Values.Look(ref globalReactionSpeedMultiplier, "globalReactionSpeedMultiplier", 1f);
         Scribe_Values.Look(ref globalReactionHeatBonusMultiplier, "globalReactionHeatBonusMultiplier", 1f);
+        Scribe_Values.Look(ref reactionRequiresHeat, "reactionRequiresHeat");
         base.ExposeData();
     }
 
@@ -45,6 +51,8 @@ public class ExoticCrucibleSettings : ModSettings
                               globalReactionHeatBonusMultiplier);
         globalReactionHeatBonusMultiplier = listingStandard.Slider(globalReactionHeatBonusMultiplier, 0.1f, 10f);
 
+        listingStandard.CheckboxLabeled("ExoticCrucible.ReactionRequiresHeat".Translate(), ref reactionRequiresHeat);
+
         listingStandard.Gap();
 
         if (listingStandard.ButtonText("ExoticCrucible.ResetSettings".Translate())) ResetSettings();
@@ -59,5 +67,6 @@ public class ExoticCrucibleSettings : ModSettings
     {
         globalReactionSpeedMultiplier = 1f;
         globalReactionHeatBonusMultiplier = 1f;
+        reactionRequiresHeat = false;
     }
 }

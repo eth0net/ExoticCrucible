@@ -1,65 +1,78 @@
 <Defs>
 
-	<ThingDef ParentName="ShipHeatsinkBase">
-		<defName>ShipExoticCrucible</defName>
-		<label>exotic crucible</label>
-		<description>An archotech coolant tank that stores excess heat produced by a ship, slowly using it to produce exotic particles. Reactions to produce exotic particles will occur much faster when enough heat and power are available. Will take damage if coolant gets near maximum heat capacity and release all heat stored if destroyed. Will slowly replenish capacity from depletion when not in battle. Does not function if the ship is cloaked.\n\nWhat do you mean you reverse engineered parts of the spore and glued it on the heatgrid, did i tell you to do that, and what the heck is a none expanding reversed of an inversed black hole?\n\nHeat capacity: 6000Hu\nHeat required for reaction: 3000Hu\nHeat loss: 2Hu/s</description>
-		<size>(4,4)</size>
-		<graphicData>
-			<texPath>Things/Building/Ship/ExoticCrucible</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(4,4)</drawSize>
-		</graphicData>
-		<statBases>
-			<MaxHitPoints>3200</MaxHitPoints>
-			<WorkToBuild>24000</WorkToBuild>
-			<Flammability>0</Flammability>
-			<Beauty>-2</Beauty>
-		</statBases>
-		<passability>PassThroughOnly</passability><!-- to pick up the Exotic Particles -->
-		<pathCost>50</pathCost>
-		<costList>
-			<Steel>500</Steel>
-			<Plasteel>250</Plasteel>
-			<Uranium>100</Uranium>
-			<Gold>50</Gold>
-			<ComponentSpacer>20</ComponentSpacer>
-			<ComponentIndustrial>20</ComponentIndustrial>
-			<ArchotechExoticParticles>15</ArchotechExoticParticles>
-		</costList>
-		<comps>
-			<li Class="ExoticCrucible.CompProps_ShipExoticCrucible">
-				<compClass>ExoticCrucible.CompShipExoticCrucible</compClass>
-				<showOnRoof>false</showOnRoof>
-				<heatCapacity>6000</heatCapacity>
-				<heatLoss>4</heatLoss>
-				<threat>14</threat>
-				<reactionWorkAmount>600000</reactionWorkAmount><!-- 10 in game days -->
-				<reactionSpeedBase>0.5</reactionSpeedBase>
-				<reactionMinimumHeat>3000</reactionMinimumHeat>
-				<reactionHeatBonus>0.1</reactionHeatBonus><!-- 300/s at max heat-->
-				<reactionProduct>ArchotechExoticParticles</reactionProduct>
-				<reactionProductAmount>5</reactionProductAmount>
-			</li>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<transmitsPower>true</transmitsPower>
-				<basePowerConsumption>15000</basePowerConsumption>
-				<idlePowerDraw>0</idlePowerDraw>
-				<alwaysDisplayAsUsingPower>true</alwaysDisplayAsUsingPower>
-			</li>
-			<li Class="CompProperties_Flickable" />
-			<li>
-				<compClass>CompColorable</compClass>
-			</li>
-		</comps>
-		<building>
-			<paintable>true</paintable>
-		</building>
-		<researchPrerequisites>
-			<li>ShipExoticCrucible</li>
-		</researchPrerequisites>
-	</ThingDef>
+  <ThingDef ParentName="ShipHeatsinkBase">
+    <defName>ShipExoticCrucible</defName>
+    <label>exotic crucible</label>
+    <description>An archotech coolant tank that stores excess heat produced by a ship, slowly using it to produce exotic
+      particles. Reactions to produce exotic particles will occur much faster when enough heat and power are available.
+      Will take damage if coolant gets near maximum heat capacity and release all heat stored if destroyed. Will slowly
+      replenish capacity from depletion when not in battle. Does not function if the ship is cloaked.\n\nWhat do you
+      mean you reverse engineered parts of the spore and glued it on the heatgrid, did i tell you to do that, and what
+      the heck is a none expanding reversed of an inversed black hole?\n\nHeat capacity: 6000Hu\nHeat required for
+      reaction: 3000Hu\nHeat loss: 2Hu/s
+    </description>
+    <size>(4,4)</size>
+    <graphicData>
+      <texPath>Things/Building/Ship/ExoticCrucible</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(4,4)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>3200</MaxHitPoints>
+      <WorkToBuild>24000</WorkToBuild>
+      <Flammability>0</Flammability>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <passability>PassThroughOnly</passability><!-- to pick up the Exotic Particles -->
+    <pathCost>50</pathCost>
+    <costList>
+      <Steel>500</Steel>
+      <Plasteel>250</Plasteel>
+      <Uranium>100</Uranium>
+      <Gold>50</Gold>
+      <ComponentSpacer>20</ComponentSpacer>
+      <ComponentIndustrial>20</ComponentIndustrial>
+      <ArchotechExoticParticles>15</ArchotechExoticParticles>
+    </costList>
+    <comps>
+      <li Class="ExoticCrucible.CompProps_ShipExoticCrucible">
+        <compClass>ExoticCrucible.CompShipExoticCrucible</compClass>
+        <heatCapacity>6000</heatCapacity>
+        <heatLoss>4</heatLoss>
+        <showOnRoof>false</showOnRoof>
+        <threat>14</threat>
+        <reactionHeatBonus>0.15</reactionHeatBonus> <!-- % heat above min heat -->
+        <reactionHeatPowerCurve>
+          <points>
+            <li>(-5500, -22500)</li>  <!-- need the negative to create a parabola -->
+            <li>(500, 7500)</li>      <!-- power draw at min heat -->
+            <li>(6000, 37500)</li>    <!-- power draw at max heat -->
+          </points>
+        </reactionHeatPowerCurve>
+        <reactionMinimumHeat>500</reactionMinimumHeat> <!-- heat required for reaction -->
+        <reactionProduct>ArchotechExoticParticles</reactionProduct> <!-- product -->
+        <reactionProductAmount>5</reactionProductAmount> <!-- product amount -->
+        <reactionSpeedBase>1</reactionSpeedBase> <!-- 1 work per tick before multipliers -->
+        <reactionWorkAmount>1200000</reactionWorkAmount> <!-- 20 in game days at base speed -->
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <alwaysDisplayAsUsingPower>true</alwaysDisplayAsUsingPower>
+        <basePowerConsumption>7500</basePowerConsumption>
+        <idlePowerDraw>0</idlePowerDraw>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li>
+        <compClass>CompColorable</compClass>
+      </li>
+    </comps>
+    <building>
+      <paintable>true</paintable>
+    </building>
+    <researchPrerequisites>
+      <li>ShipExoticCrucible</li>
+    </researchPrerequisites>
+  </ThingDef>
 
 </Defs>
-	
